@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Goat's Lane Café demo website for Clarinbridge, County Galway.">
+  <title>Goat's Lane Café | Clarinbridge</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --cream: #f5efe6;
+      --paper: #fffaf3;
+      --ink: #25231f;
+      --muted: #746d64;
+      --green: #4f6049;
+      --green-dark: #34402f;
+      --tan: #c5a886;
+      --line: rgba(37,35,31,.15);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--cream);
+      color: var(--ink);
+      font-family: "DM Sans", sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    img {
+      width: 100%;
+      max-width: 100%;
+      display: block;
+      height: auto;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1160px, 90%);
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--green);
+    }
+
+    h1, h2, h3 {
+      font-family: "Playfair Display", serif;
+      font-weight: 500;
+    }
+
+    h1 {
+      font-size: clamp(64px, 9vw, 118px);
+      line-height: .86;
+      letter-spacing: -3px;
+      margin: 18px 0 28px;
+    }
+
+    h2 {
+      font-size: clamp(46px, 6vw, 74px);
+      line-height: 1;
+      margin: 14px 0 26px;
+    }
+
+    p {
+      margin-top: 0;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 14px 24px;
+      border-radius: 999px;
+      background: var(--green);
+      color: white;
+      font-weight: 600;
+      font-size: 14px;
+      transition: .2s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      background: var(--green-dark);
+    }
+
+    .button-light {
+      background: var(--paper);
+      color: var(--ink);
+    }
+
+    header {
+      position: absolute;
+      inset: 0 0 auto;
+      z-index: 20;
+      border-bottom: 1px solid rgba(255,255,255,.25);
+    }
+
+    .navbar {
+      height: 88px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+      color: white;
+    }
+
+    .logo {
+      font-family: "Playfair Display", serif;
+      font-size: 26px;
+      line-height: 1;
+    }
+
+    .logo span {
+      display: block;
+      margin-top: 6px;
+      font-family: "DM Sans", sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: 7px;
+      opacity: .8;
+    }
+
+    nav {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .hero {
+      min-height: 760px;
+      display: flex;
+      align-items: center;
+      color: white;
+      background:
+        linear-gradient(90deg, rgba(31,34,28,.85), rgba(31,34,28,.28)),
+        url("https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1800&q=85")
+        center / cover no-repeat;
+    }
+
+    .hero-content {
+      max-width: 760px;
+      padding-top: 80px;
+    }
+
+    .hero .eyebrow {
+      color: #e4d7c8;
+    }
+
+    .hero p {
+      max-width: 560px;
+      font-size: 18px;
+      color: #f0e9e0;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    section {
+      padding: 110px 0;
+    }
+
+    .intro-grid {
+      display: grid;
+      grid-template-columns: .95fr 1.05fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .intro-image {
+      height: 640px;
+      object-fit: cover;
+      border-radius: 8px 180px 8px 8px;
+    }
+
+    .large-text {
+      font-size: 18px;
+      color: var(--muted);
+    }
+
+    .menu-section {
+      background: var(--green-dark);
+      color: white;
+    }
+
+    .menu-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 40px;
+      margin-bottom: 55px;
+    }
+
+    .menu-heading .eyebrow {
+      color: #d8c5ae;
+    }
+
+    .menu-heading p {
+      max-width: 440px;
+      color: #cec8c0;
+    }
+
+    .menu-list {
+      border-top: 1px solid rgba(255,255,255,.2);
+    }
+
+    .menu-item {
+      display: grid;
+      grid-template-columns: 70px .85fr 1.15fr;
+      gap: 25px;
+      align-items: center;
+      padding: 28px 0;
+      border-bottom: 1px solid rgba(255,255,255,.2);
+    }
+
+    .menu-number {
+      color: #c6aa89;
+      font-size: 13px;
+    }
+
+    .menu-item h3 {
+      margin: 0;
+      font-size: 34px;
+    }
+
+    .menu-item p {
+      margin: 0;
+      color: #cfc8c1;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 620px;
+      padding: 0;
+    }
+
+    .split-image {
+      min-height: 620px;
+      background:
+        url("https://images.unsplash.com/photo-1445116572660-236099ec97a0?auto=format&fit=crop&w=1400&q=85")
+        center / cover no-repeat;
+    }
+
+    .split-copy {
+      background: #d7c0a3;
+      padding: 80px;
+      display: flex;
+      align-items: center;
+    }
+
+    .split-copy-inner {
+      max-width: 520px;
+    }
+
+    .split-copy p {
+      color: #4f463c;
+      font-size: 17px;
+    }
+
+    .gallery-heading {
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto 50px;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .gallery img {
+      height: 420px;
+      object-fit: cover;
+    }
+
+    .gallery img:nth-child(2) {
+      margin-top: 45px;
+    }
+
+    .visit {
+      background: var(--paper);
+    }
+
+    .visit-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 90px;
+    }
+
+    .details {
+      margin-top: 30px;
+      border-top: 1px solid var(--line);
+    }
+
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 25px;
+      padding: 17px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .detail-row strong {
+      text-align: right;
+    }
+
+    .cta {
+      background: var(--green);
+      color: white;
+      text-align: center;
+    }
+
+    .cta .eyebrow {
+      color: #e4d7c8;
+    }
+
+    .cta h2 {
+      max-width: 800px;
+      margin: 15px auto 30px;
+    }
+
+    footer {
+      background: #1f211d;
+      color: white;
+      padding: 55px 0 30px;
+    }
+
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 50px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid rgba(255,255,255,.15);
+    }
+
+    .footer-address {
+      color: #b9b4ae;
+      font-size: 14px;
+    }
+
+    .demo-note {
+      max-width: 760px;
+      padding-top: 24px;
+      color: #88847f;
+      font-size: 11px;
+    }
+
+    /* Tablets */
+    @media (max-width: 1024px) {
+      .container {
+        width: min(92%, 900px);
+      }
+
+      section {
+        padding: 88px 0;
+      }
+
+      .hero {
+        min-height: 700px;
+        background-position: 58% center;
+      }
+
+      h1 {
+        font-size: clamp(62px, 10vw, 92px);
+      }
+
+      .intro-grid {
+        gap: 50px;
+      }
+
+      .intro-image {
+        height: 560px;
+      }
+
+      .split {
+        min-height: 560px;
+      }
+
+      .split-image {
+        min-height: 560px;
+      }
+
+      .split-copy {
+        padding: 60px 7%;
+      }
+
+      .gallery img {
+        height: 360px;
+      }
+
+      .visit-grid {
+        gap: 60px;
+      }
+    }
+
+    /* Small tablets */
+    @media (max-width: 800px) {
+      nav a:not(.nav-visit) {
+        display: none;
+      }
+
+      .navbar {
+        height: 74px;
+      }
+
+      .hero {
+        min-height: 650px;
+        background-position: 62% center;
+      }
+
+      .hero-content {
+        padding-top: 70px;
+      }
+
+      h1 {
+        font-size: clamp(54px, 12vw, 76px);
+        line-height: .92;
+      }
+
+      h2 {
+        font-size: clamp(42px, 8vw, 60px);
+      }
+
+      .intro-grid,
+      .visit-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .intro-image {
+        height: min(68vh, 520px);
+      }
+
+      .menu-heading {
+        display: block;
+      }
+
+      .menu-item {
+        grid-template-columns: 45px 1fr;
+      }
+
+      .menu-item p {
+        grid-column: 2;
+      }
+
+      .split {
+        grid-template-columns: 1fr;
+      }
+
+      .split-image {
+        min-height: 420px;
+      }
+
+      .gallery {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .gallery img,
+      .gallery img:nth-child(2) {
+        height: 340px;
+        margin-top: 0;
+      }
+
+      .gallery img:last-child {
+        grid-column: 1 / -1;
+        height: 400px;
+      }
+
+      .footer-top {
+        flex-direction: column;
+      }
+    }
+
+    /* Phones */
+    @media (max-width: 600px) {
+      .container {
+        width: 88%;
+      }
+
+      .navbar {
+        height: 68px;
+      }
+
+      .logo {
+        font-size: 20px;
+      }
+
+      .nav-visit {
+        padding: 9px 13px;
+        border: 1px solid rgba(255,255,255,.7);
+        border-radius: 999px;
+        font-size: 12px;
+      }
+
+      .hero {
+        min-height: 610px;
+        align-items: flex-end;
+        padding-bottom: 55px;
+        background:
+          linear-gradient(90deg, rgba(31,34,28,.9), rgba(31,34,28,.48)),
+          url("https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1200&q=82")
+          64% center / cover no-repeat;
+      }
+
+      .hero-content {
+        padding-top: 90px;
+      }
+
+      .eyebrow {
+        font-size: 10px;
+        letter-spacing: 2.2px;
+      }
+
+      h1 {
+        font-size: clamp(45px, 15vw, 62px);
+        line-height: .94;
+        letter-spacing: -1px;
+        margin: 16px 0 22px;
+      }
+
+      h2 {
+        font-size: clamp(38px, 11vw, 50px);
+        line-height: 1.02;
+      }
+
+      .hero p,
+      .large-text {
+        font-size: 16px;
+      }
+
+      .hero-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .hero-actions .button {
+        width: 100%;
+        text-align: center;
+      }
+
+      section {
+        padding: 64px 0;
+      }
+
+      .intro-grid {
+        gap: 34px;
+      }
+
+      .intro-image {
+        height: 420px;
+        border-radius: 8px 130px 8px 8px;
+      }
+
+      .menu-heading {
+        margin-bottom: 34px;
+      }
+
+      .menu-item {
+        grid-template-columns: 34px 1fr;
+        gap: 12px;
+        padding: 24px 0;
+      }
+
+      .menu-item h3 {
+        font-size: 28px;
+        line-height: 1.1;
+      }
+
+      .menu-item p {
+        font-size: 15px;
+      }
+
+      .split-image {
+        min-height: 330px;
+      }
+
+      .split-copy {
+        padding: 55px 6%;
+      }
+
+      .split-copy p {
+        font-size: 16px;
+      }
+
+      .gallery-heading {
+        margin-bottom: 34px;
+      }
+
+      .gallery {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery img,
+      .gallery img:nth-child(2),
+      .gallery img:last-child {
+        grid-column: auto;
+        height: 320px;
+        margin-top: 0;
+      }
+
+      .visit-grid {
+        gap: 42px;
+      }
+
+      .detail-row {
+        align-items: flex-start;
+      }
+
+      .detail-row span,
+      .detail-row strong {
+        max-width: 50%;
+      }
+
+      .cta .button {
+        width: 100%;
+        max-width: 320px;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .logo {
+        font-size: 18px;
+      }
+
+      h1 {
+        font-size: 42px;
+      }
+
+      .intro-image {
+        height: 370px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="container navbar">
+    <a href="#" class="logo">
+      Goat's Lane
+      <span>Café · Clarinbridge</span>
+    </a>
+
+    <nav>
+      <a href="#about">About</a>
+      <a href="#menu">Food & Coffee</a>
+      <a href="#visit" class="nav-visit">Visit</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <div class="eyebrow">Independent Café · Clarinbridge</div>
+
+      <h1>
+        Good coffee.<br>
+        <em>Good company.</em>
+      </h1>
+
+      <p>
+        A relaxed café in the heart of Clarinbridge for coffee,
+        something tasty and a little time out of the day.
+      </p>
+
+      <div class="hero-actions">
+        <a class="button button-light" href="#visit">Find the Café</a>
+        <a class="button" href="#menu">Explore the Café</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="container intro-grid">
+    <div>
+      <img
+        class="intro-image"
+        src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=1000&q=85"
+        alt="Cosy café interior"
+      >
+    </div>
+
+    <div>
+      <div class="eyebrow">Goat's Lane Café</div>
+
+      <h2>A local place to slow down.</h2>
+
+      <p class="large-text">
+        Goat's Lane is a café in Clarinbridge, County Galway.
+      </p>
+
+      <p>
+        Whether you're stopping for a morning coffee, meeting a friend
+        or taking a break during the day, the idea is simple: a warm,
+        welcoming place with good food and good coffee.
+      </p>
+
+      <p>
+        This demo focuses on giving the café a clear, modern online
+        presence that feels relaxed, local and easy to use on any device.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="menu-section" id="menu">
+  <div class="container">
+    <div class="menu-heading">
+      <div>
+        <div class="eyebrow">At the Café</div>
+        <h2>Something for your day.</h2>
+      </div>
+
+      <p>
+        Menu items can change, so this demo keeps things general.
+        Check with the café directly for current choices and availability.
+      </p>
+    </div>
+
+    <div class="menu-list">
+      <div class="menu-item">
+        <div class="menu-number">01</div>
+        <h3>Coffee</h3>
+        <p>Fresh coffee for a quick stop, a catch-up or a slower morning.</p>
+      </div>
+
+      <div class="menu-item">
+        <div class="menu-number">02</div>
+        <h3>Breakfast & Lunch</h3>
+        <p>A simple café selection for mornings, lunches and something in between.</p>
+      </div>
+
+      <div class="menu-item">
+        <div class="menu-number">03</div>
+        <h3>Sweet Treats</h3>
+        <p>Something sweet to enjoy with your coffee or take away for later.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="split">
+  <div class="split-image" role="img" aria-label="Coffee being prepared in a café"></div>
+
+  <div class="split-copy">
+    <div class="split-copy-inner">
+      <div class="eyebrow">The Café</div>
+
+      <h2>Your everyday coffee stop.</h2>
+
+      <p>
+        Some places are about more than what is on the menu.
+        Goat's Lane can be positioned online as a comfortable local
+        spot to meet, recharge and enjoy a good cup of coffee.
+      </p>
+
+      <a href="#visit" class="button">Plan a Visit</a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="gallery-heading">
+      <div class="eyebrow">A little inspiration</div>
+      <h2>Coffee, food & a cosy corner.</h2>
+    </div>
+
+    <div class="gallery">
+      <img
+        src="https://images.unsplash.com/photo-1511081692775-05d0f180a065?auto=format&fit=crop&w=900&q=85"
+        alt="Fresh coffee"
+      >
+      <img
+        src="https://images.unsplash.com/photo-1559925393-8be0ec4767c8?auto=format&fit=crop&w=900&q=85"
+        alt="Café setting"
+      >
+      <img
+        src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=900&q=85"
+        alt="Fresh baked food"
+      >
+    </div>
+  </div>
+</section>
+
+<section class="visit" id="visit">
+  <div class="container visit-grid">
+    <div>
+      <div class="eyebrow">Find Us</div>
+      <h2>Visit Goat's Lane.</h2>
+
+      <p class="large-text">
+        8 Sea Road<br>
+        Hillpark<br>
+        Clarinbridge, Co. Galway<br>
+        H91 YW2D
+      </p>
+
+      <p>
+        For current opening hours, menu availability and other
+        café information, please check directly with the business.
+      </p>
+    </div>
+
+    <div>
+      <div class="eyebrow">At a Glance</div>
+
+      <div class="details">
+        <div class="detail-row">
+          <span>Location</span>
+          <strong>Clarinbridge</strong>
+        </div>
+
+        <div class="detail-row">
+          <span>Setting</span>
+          <strong>Local café</strong>
+        </div>
+
+        <div class="detail-row">
+          <span>Current hours</span>
+          <strong>Check directly</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="container">
+    <div class="eyebrow">Drop in</div>
+    <h2>Make Goat's Lane part of your day.</h2>
+    <a href="#visit" class="button button-light">Find the Café</a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="logo">
+        Goat's Lane
+        <span>Café · Clarinbridge</span>
+      </div>
+
+      <div class="footer-address">
+        8 Sea Road, Hillpark<br>
+        Clarinbridge, Co. Galway<br>
+        H91 YW2D
+      </div>
+    </div>
+
+    <div class="demo-note">
+      DEMO WEBSITE — This website is a design concept and is not the official
+      Goat's Lane Café website. Stock imagery is used for demonstration
+      purposes and should be replaced with photographs supplied or approved
+      by the business before publication. Current menu items, contact details
+      and opening hours should be confirmed with the business before launch.
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
